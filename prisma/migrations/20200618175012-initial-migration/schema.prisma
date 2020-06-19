@@ -1,0 +1,27 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Questionnaire {
+  id                  Int @id @default(autoincrement())
+  questionnaireTitle  String
+  questions           Question[] 
+  name                String
+}
+
+model Question {
+  id             Int @id @default(autoincrement())
+  questionTitle  String
+  answers        Answer[] 
+}
+
+model Answer {
+  id          Int @id @default(autoincrement())
+  description String
+  isCorrect   Boolean @default(false)
+}
