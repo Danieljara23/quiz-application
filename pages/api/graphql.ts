@@ -10,6 +10,12 @@ const typeDefs = gql`
     questionnaires: [Questionnaire!]!
   }
 
+  type Mutation {
+    createAnswer(description: String!, isCorrect: Boolean!, questionId: ID): Answer
+    createQuestion(questionTitle: String!, questionnaireId: ID): Question
+    # createQuestionnaire(questionnaireTitle: String!, questions: [Question]!): Questionnaire
+  }
+
   type User {
     name: String
     username: String
@@ -47,18 +53,45 @@ const resolvers = {
     user(parent, { username }) {
       return users.find((user) => user.username === username)
     },
-    questionnaires() {
-      return prisma.questionnaire.findMany()
+    questionnaires(parent, args, ctx) {
+      return ctx.prisma.questionnaire.findMany()
     }
   },
   Questionnaire: {
-    questions(parent) {
-      return prisma.question.findMany({where: { questionnaireId: parent.id}})
+    questions(parent,args, ctx) {
+      return ctx.prisma.question.findMany({where: { questionnaireId: parent.id}})
     }
   },
   Question: {
-    answers(parent) {
-      return prisma.answer.findMany({where: {questionId: parent.id}, take: 10})
+    answers(parent,args, ctx) {
+      return ctx.prisma.answer.findMany({where: {questionId: parent.id}, take: 10})
+    }
+  },
+  Mutation: {
+    // createQuestionnaire(){
+    //   return prisma.questionnaire.create()
+    // },
+    createQuestion(parent, {questionTitle, questionnaireId}, ctx ){
+      return ctx.prisma.question.create({
+        data: {
+          questionTitle,
+          Questionnaire: {
+            connect: { id: Number(questionnaireId) }
+          }
+        },
+        
+      })
+    },
+    createAnswer(parent, {description, isCorrect, questionId}, ctx) {
+      return ctx.prisma.answer.create({
+        data: {
+          description,
+          isCorrect,
+          Question:{
+            connect: {id: Number(questionId)}
+          }
+        }
+      })
     }
   }
 }
@@ -71,6 +104,8 @@ export const config = {
   },
 }
 
-export default new ApolloServer({ schema }).createHandler({
+export default new ApolloServer({ 
+  schema,
+  context: () => ({ prisma }) }).createHandler({
   path: '/api/graphql',
 })
