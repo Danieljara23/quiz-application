@@ -87,7 +87,14 @@
     {
       "tag": "CreateField",
       "model": "Questionnaire",
-      "field": "name",
+      "field": "description",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Questionnaire",
+      "field": "imageUrl",
       "type": "String",
       "arity": "Required"
     },

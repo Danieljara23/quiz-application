@@ -10,8 +10,9 @@ generator client {
 model Questionnaire {
   id                  Int @id @default(autoincrement())
   questionnaireTitle  String
-  questions           Question[] 
-  name                String
+  questions           Question[]
+  description         String
+  imageUrl            String
 }
 
 model Question {

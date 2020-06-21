@@ -21,7 +21,8 @@ export const typeDefs = gql`
   type Questionnaire {
     id: ID!
     questionnaireTitle: String!
-    name:String
+    description: String!
+    imageurl: String!
     questions: [Question]
   }
   
