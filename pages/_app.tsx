@@ -10,7 +10,7 @@ import { globalStyles } from '../shared/styles'
 // const GRAPHQL_ENDPOINT = `http://localhost:3000/api/graphql`;
 const URL_GOOGLE_FONTS = "https://fonts.googleapis.com/css2?family=Muli:wght@400;600;700&display=swap";
 
-function MyApp({Component, pageProps, canonicalUrl}: AppProps){
+function MyApp({Component, pageProps, canonicalUrl}){
   const apolloClient = useApollo(pageProps.initialApolloState);
   return (
     <ApolloProvider client={apolloClient}>
