@@ -1,20 +1,23 @@
 import { useQuery } from '@apollo/react-hooks'
 import gql from "graphql-tag";
 import QuestionnaireCard from "../src/components/QuestionnaireCard/index";
+import  Layout from "../src/components/Layout/index";
 import {css} from "@emotion/core";
-
+import Link from 'next/link';
 const containerCss = css`
   width:100%;
 `;
 
 const titleCss = css`
   display: flex;
+  font-size: 30px;
 `;
 const questionnairesQuery = gql`
   query{
     questionnaires{
       id
       questionnaireTitle
+      imageUrl
     }
   }
 `;
@@ -22,6 +25,7 @@ const questionnairesQuery = gql`
 interface Questionnaire {
   id: string,
   questionnaireTitle: string
+  imageUrl: string
 }
 
 interface QuestionnairesData {
@@ -35,22 +39,25 @@ function Questionnaires(){
   if(loading) return <p>Loading</p>;
   if(error) return <p>Ups, an error has ocurred</p>;
   console.log(data);
-  // const {questionnaires} = data;
   return(
-    <div css={containerCss}>
+    <Layout css={containerCss} title="Categorías">
       <h1 css={titleCss}>Categorías</h1>
       {data?.questionnaires.map((questionnaire:any) => {
         return(
-          <QuestionnaireCard
-            questionnaireTitle={questionnaire.questionnaireTitle}
-          />
+          <Link href={`questionnaire/${questionnaire.id}`}>
+          <a href="">
+            <QuestionnaireCard
+              key={`questionnaire-${questionnaire.id}`}
+              imageUrl={questionnaire.imageUrl}
+              questionnaireTitle={questionnaire.questionnaireTitle}
+            />
+          </a>
+          </Link>
         )
       })}
-    </div>
+    </Layout>
   )
 
 }
-
-
 
 export default Questionnaires;

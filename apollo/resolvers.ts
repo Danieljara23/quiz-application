@@ -1,8 +1,10 @@
-
 export const resolvers = {
   Query: {
     questionnaires(parent:any, args:any, ctx:any) {
       return ctx.prisma.questionnaire.findMany()
+    },
+    questionnaire(parent:any, {id}: any, ctx:any){
+      return ctx.prisma.questionnaire.findOne({where:{id: Number(id)}})
     }
   },
   Questionnaire: {

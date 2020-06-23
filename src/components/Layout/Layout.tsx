@@ -7,8 +7,8 @@ type Props = {
   title?: string
 }
 
-const Layout = ({ children, title = 'Quiz Game Application' }: Props) => (
-  <div>
+function Layout({ children, title = "AppstUdiar" }: Props){
+  return (<div>
     <Head>
       <title>{title}</title>
     </Head>
@@ -22,10 +22,9 @@ const Layout = ({ children, title = 'Quiz Game Application' }: Props) => (
           <a>About</a>
         </Link>{' '}
         |{' '}
-        <Link href="/users">
-          <a>Users List</a>
-        </Link>{' '}
-        | <a href="/api/users">Users API</a>
+        <Link href="/questionnaires">
+          <a>Categorías</a>
+        </Link>
       </nav>
     </header>
     {children}
@@ -33,7 +32,7 @@ const Layout = ({ children, title = 'Quiz Game Application' }: Props) => (
       <hr />
       <span>I'm here to stay (Footer)</span>
     </footer>
-  </div>
-)
+  </div>)
+}
 
-export default Layout
+export default Layout;

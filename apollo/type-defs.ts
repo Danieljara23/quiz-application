@@ -5,6 +5,7 @@ export const typeDefs = gql`
     users: [User!]!
     user(username: String): User
     questionnaires: [Questionnaire!]!
+    questionnaire(id: ID): Questionnaire!
   }
 
   type Mutation {
@@ -22,7 +23,7 @@ export const typeDefs = gql`
     id: ID!
     questionnaireTitle: String!
     description: String!
-    imageurl: String!
+    imageUrl: String
     questions: [Question]
   }
   
