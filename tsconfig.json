@@ -15,7 +15,7 @@
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "target": "esnext",
     "rootDir": ".",
     "plugins": [{ "name": "nexus/typescript-language-service" }]

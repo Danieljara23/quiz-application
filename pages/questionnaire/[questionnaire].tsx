@@ -1,23 +1,8 @@
-import { useQuery } from '@apollo/react-hooks'
-import gql from "graphql-tag";
+import {useState} from "react";
 import {css} from "@emotion/core";
+import QuizComponent from "../../src/components/QuizComponent";
+import useQuizManager from "../../src/hooks/useQuizManager";
 
-const questionnaireQuery = gql`
-  query questionnaire($id: ID!) {
-    questionnaire(id: $id){
-      questionnaireTitle
-      description
-      imageUrl
-      questions{
-        questionTitle
-        answers{
-          description
-          isCorrect
-        }
-      }
-    }
-  }
-`;
 
 const containerCss = css`
   display: grid;
@@ -61,21 +46,45 @@ const buttonCss = css`
 
 
 function Questionnaire({ props }){
+  const [openQuiz, setOpenQuiz] = useState(false);
   const  id  = props.questionnaire;
-
-  const {data, loading, error} = useQuery(questionnaireQuery, {variables: {id}})
-  console.log(data)
+  const { quizState: { questionnaireTitle, imageUrl, description, questions, counter, total, loading, error} , setNextQuestion} = useQuizManager({id});
   if(loading) return <p>Loading</p>;
   if(error) return <p>Ups, ha ocurrido un error</p>;
-  const { questionnaire } = data;
 
+
+  function handleClick(){
+    console.log("Clicked!");
+    setOpenQuiz(true);
+  }
+
+  function handleNextQuestion(isCorrect){
+    // setNextQuestion();
+    console.log(isCorrect)
+    console.log("Hello")
+  }
+
+console.log("COUNTER:", counter);
   return (
     <div css={containerCss}>
-      <img src={questionnaire.imageUrl} alt={questionnaire.questionnaireTitle}/>
-      <div css={contentCss}>
-        <p>{questionnaire.description}</p>
-        <button css={buttonCss}>Empezar</button>
-      </div>
+      {
+        openQuiz ? (
+        <QuizComponent
+          counter={counter}
+          total={total}
+          questionTitle={questions[counter]?.questionTitle}
+          answers={questions[counter]?.answers}
+          onAnswerSelected={handleNextQuestion}
+        /> ):(
+          <>
+            <img src={imageUrl} alt={questionnaireTitle}/>
+            <div css={contentCss}>
+              <p>{description}</p>
+              <button css={buttonCss} onClick={()=>handleClick()}>Empezar</button>
+            </div>
+          </>
+        )
+      }
     </div>
   )
 }

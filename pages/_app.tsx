@@ -31,6 +31,7 @@ function MyApp({Component, pageProps, canonicalUrl}:any){
           `}
         />
         <Component {...pageProps} />
+        <div id ="modals-container"></div>
       </CacheProvider>
     </ApolloProvider>
   )
