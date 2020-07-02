@@ -58,11 +58,32 @@ function Questionnaire({ props }){
     setOpenQuiz(true);
   }
 
-  function handleNextQuestion(isCorrect){
-    // setNextQuestion();
+  // 1px solid #38b16c
+  // #ca6666 -red
+  function handleSelectedQuestion(event, isCorrect){
+    console.log(event.target)
+    event.stopPropagation();
+    if(document && event.target){
+      const parentClass = event.target.parentElement.getAttribute('class');
+      const answerList = document.querySelectorAll(`.${parentClass}`);
+      answerList.forEach((listItem:any) => {
+        console.log(listItem)
+        if(listItem.getAttribute('data-correct') === "true"){
+          listItem.style['border'] = '1px solid #38b16c';
+          listItem.style['background-color'] = '#38b16c';
+        }
+      })
+      if(event.target.parentElement.getAttribute('data-correct') === "false"){
+        event.target.parentElement.style['border'] = '1px solid #ca6666';
+        event.target.parentElement.style['background-color'] = '#ca6666';
+      }
+      console.log(answerList)
+    }
     console.log(isCorrect)
-    console.log("Hello")
+    // console.log("Hello")
   }
+  
+
 
 console.log("COUNTER:", counter);
   return (
@@ -74,7 +95,8 @@ console.log("COUNTER:", counter);
           total={total}
           questionTitle={questions[counter]?.questionTitle}
           answers={questions[counter]?.answers}
-          onAnswerSelected={handleNextQuestion}
+          onAnswerSelected={handleSelectedQuestion}
+          onNextQuestion={setNextQuestion}
         /> ):(
           <>
             <img src={imageUrl} alt={questionnaireTitle}/>
