@@ -67,10 +67,10 @@ const pauseCss = css`
 
 function QuizComponent(props){
   const {counter, total, questionTitle, answers, onAnswerSelected, onNextQuestion } = props;
-  const [showCorrect, setShowCorrect] = useState(false);
+  const [showCorrect, setShowCorrect] = useState(null);
 
   function handleNextQuestion(){
-    setShowCorrect(false);
+    setShowCorrect(null);
     onNextQuestion();
   }
 
@@ -90,6 +90,15 @@ function QuizComponent(props){
         <ul css={answerListCss}>
           {
             answers.map((item, index) =>{
+              let type;
+              if(showCorrect === item.id && item.isCorrect || showCorrect && item.isCorrect){
+                type = "correct";
+              }else if(showCorrect === item.id && !item.isCorrect){
+                type = "wrong";
+              }else{
+                type = "default";
+              }
+
               return(
                 <AnswerOption
                   id={item.id}
@@ -100,6 +109,7 @@ function QuizComponent(props){
                   index={index}
                   showCorrect={showCorrect}
                   setShowCorrect={setShowCorrect}
+                  type={type}
                 />
               )
             })

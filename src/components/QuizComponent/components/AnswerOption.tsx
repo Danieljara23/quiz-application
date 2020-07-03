@@ -31,6 +31,11 @@ const labelCss = css`
   align-items: center;
 `;
 
+const TYPE_COLORS = {
+  correct: "#38b16c",
+  wrong: "#ca6666",
+  default: "#7075d8"
+};
 
 const AnswerListItem = styled.li`
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.16);
@@ -40,12 +45,10 @@ const AnswerListItem = styled.li`
   margin-bottom: 20px;
   font-size: 16px;
   display: flex;
-  background-color: #7075d8;
-  border: 1px solid #7075d8;
-  background-color: ${({selectedByUser, showCorrect, isCorrect}:any) => (selectedByUser === "correct" || (showCorrect && isCorrect)   && '#38b16c')};
-  background-color: ${({selectedByUser, showCorrect}:any) => (selectedByUser === "wrong" && showCorrect && '#ca6666')};
-  border: ${({selectedByUser, showCorrect, isCorrect}) => (selectedByUser === "correct" || (showCorrect && isCorrect) && '1px solid #38b16c')};
-  border: ${({selectedByUser, showCorrect}) => (selectedByUser === "wrong" && showCorrect && '1px solid #ca6666')};
+  ${({ type }) => css`
+    background-color: ${TYPE_COLORS[type]};
+    border: 1px solid ${TYPE_COLORS[type]};
+  `}
 `;
 
 interface AnswerOption {
@@ -56,24 +59,21 @@ interface AnswerOption {
   index: number
   showCorrect: boolean
   setShowCorrect: any
+  type: string
 }
 
 
 
-function AnswerOption({id, isCorrect, answerContent, onAnswerSelected, index, showCorrect, setShowCorrect}:AnswerOption){
-  const [selectedByUser, setSelectedByUser] = useState("");
+function AnswerOption({id, isCorrect, answerContent, onAnswerSelected, index, showCorrect, setShowCorrect, type}:AnswerOption){
 
   function handleClick(){
     console.log(isCorrect)
-    setShowCorrect(true)
-    if(isCorrect){
-      setSelectedByUser("correct");
-    }else{
-      setSelectedByUser("wrong");
-    }
+    setShowCorrect(id)
+   
   }
+
   return(
-    <AnswerListItem onClick={handleClick} selectedByUser={selectedByUser} isCorrect={isCorrect} showCorrect={showCorrect}>
+    <AnswerListItem onClick={handleClick} type={type}>
       <input
         css={customRadioButtonCss}
         type="radio"
