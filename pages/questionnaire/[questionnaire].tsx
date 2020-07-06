@@ -48,11 +48,11 @@ const buttonCss = css`
 function Questionnaire({ props }){
   const [openQuiz, setOpenQuiz] = useState(false);
   const  id  = props.questionnaire;
-  const { quizState: { questionnaireTitle, imageUrl, description, questions, counter, total, loading, error} , setNextQuestion} = useQuizManager({id});
+  const { quizState: { questionnaireTitle, imageUrl, description, questions, counter, total, userAnswers,  loading, error} , setUserAnswers,  setNextQuestion} = useQuizManager({id});
   if(loading) return <p>Loading</p>;
   if(error) return <p>Ups, ha ocurrido un error</p>;
-
-
+  console.log(userAnswers);
+  
   function handleClick(){
     console.log("Clicked!");
     setOpenQuiz(true);
@@ -97,6 +97,7 @@ console.log("COUNTER:", counter);
           answers={questions[counter]?.answers}
           onAnswerSelected={handleSelectedQuestion}
           onNextQuestion={setNextQuestion}
+          setUserAnswers={setUserAnswers}
         /> ):(
           <>
             <img src={imageUrl} alt={questionnaireTitle}/>

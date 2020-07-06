@@ -37,17 +37,27 @@ const TYPE_COLORS = {
   default: "#7075d8"
 };
 
+const TYPE_BORDER_RADIUS = {
+  large: "20px",
+  default: "33px"
+}
+
+const TYPE_HEIGHT = {
+  large: "80px",
+  default: "40px"
+}
+
 const AnswerListItem = styled.li`
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.16);
-  height: 40px;
-  border-radius: 33px;
   margin: 0;
   margin-bottom: 20px;
   font-size: 16px;
   display: flex;
-  ${({ type }) => css`
+  ${({ type, contentLengthType }) => css`
     background-color: ${TYPE_COLORS[type]};
     border: 1px solid ${TYPE_COLORS[type]};
+    height: ${TYPE_HEIGHT[contentLengthType]};
+    border-radius: ${TYPE_BORDER_RADIUS[contentLengthType]};
   `}
 `;
 
@@ -60,20 +70,22 @@ interface AnswerOption {
   showCorrect: boolean
   setShowCorrect: any
   type: string
+  contentLengthType: string
+  setUserAnswers: (userAnswer:boolean) => {}
 }
 
 
 
-function AnswerOption({id, isCorrect, answerContent, onAnswerSelected, index, showCorrect, setShowCorrect, type}:AnswerOption){
+function AnswerOption({id, isCorrect, answerContent, onAnswerSelected, index, showCorrect, setShowCorrect, type, contentLengthType, setUserAnswers}:AnswerOption){
 
   function handleClick(){
     console.log(isCorrect)
+    setUserAnswers(isCorrect)
     setShowCorrect(id)
-   
   }
 
   return(
-    <AnswerListItem onClick={handleClick} type={type}>
+    <AnswerListItem onClick={handleClick} type={type} contentLengthType={contentLengthType}>
       <input
         css={customRadioButtonCss}
         type="radio"

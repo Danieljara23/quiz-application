@@ -2,6 +2,7 @@ import { useState } from "react";
 import AnswerOption from "./components/AnswerOption";
 import Question from "./components/Question";
 import QuestionCount from "./components/QuestionCount";
+import FinalResult from "./components/FinalResult";
 import { css } from "@emotion/core";
 
 
@@ -66,57 +67,73 @@ const pauseCss = css`
 
 
 function QuizComponent(props){
-  const {counter, total, questionTitle, answers, onAnswerSelected, onNextQuestion } = props;
+  const {counter, total, questionTitle, answers, onAnswerSelected, onNextQuestion, setUserAnswers } = props;
   const [showCorrect, setShowCorrect] = useState(null);
+  const [showFinalResult, setShowFinalResult] = useState(false);
+
 
   function handleNextQuestion(){
     setShowCorrect(null);
-    onNextQuestion();
+    if(counter + 1 === total){
+      setShowFinalResult(true);
+    }else{
+      onNextQuestion();
+    }
   }
 
   return (
     <div css={quizContainerCss}>
-      {/* <QuestionCount
-        counter={counter}
-        total={total}
-      /> */}
-      <Question
-        counter={counter}
-        total={total}
-        questionTitle={questionTitle}
-      />
-      <div css={answerListContainerCss}>
-        <p css={labelCss}>Selecciona la respuesta correcta:</p>
-        <ul css={answerListCss}>
-          {
-            answers.map((item, index) =>{
-              let type;
-              if(showCorrect === item.id && item.isCorrect || showCorrect && item.isCorrect){
-                type = "correct";
-              }else if(showCorrect === item.id && !item.isCorrect){
-                type = "wrong";
-              }else{
-                type = "default";
-              }
+      {
+      !showFinalResult ? (
+      <>
+        <Question
+          counter={counter}
+          total={total}
+          questionTitle={questionTitle}
+        />
+        <div css={answerListContainerCss}>
+          <p css={labelCss}>Selecciona la respuesta correcta:</p>
+          <ul css={answerListCss}>
+            {
+              answers.map((item, index) =>{
+                let type;
+                if(showCorrect === item.id && item.isCorrect || showCorrect && item.isCorrect){
+                  type = "correct";
+                }else if(showCorrect === item.id && !item.isCorrect){
+                  type = "wrong";
+                }else{
+                  type = "default";
+                }
 
-              return(
-                <AnswerOption
-                  id={item.id}
-                  answerContent={item.description}
-                  key={item.content}
-                  isCorrect={item.isCorrect}
-                  onAnswerSelected={onAnswerSelected}
-                  index={index}
-                  showCorrect={showCorrect}
-                  setShowCorrect={setShowCorrect}
-                  type={type}
-                />
-              )
-            })
-          }
-        </ul>
+                const contentLengthType = item.description.length > 39 ? 'large': 'default';
+                console.log(contentLengthType);
 
-      </div>
+                return(
+                  <AnswerOption
+                    id={item.id}
+                    answerContent={item.description}
+                    key={item.content}
+                    isCorrect={item.isCorrect}
+                    onAnswerSelected={onAnswerSelected}
+                    index={index}
+                    showCorrect={showCorrect}
+                    setShowCorrect={setShowCorrect}
+                    type={type}
+                    contentLengthType={contentLengthType}
+                    setUserAnswers={setUserAnswers}
+                  />
+                )
+              })
+            }
+          </ul>
+
+        </div>
+      </>
+      ):(
+        <FinalResult/>
+      )
+
+      }
       <div css={controlsCss}>
         {/* <div css={arrowCss}></div> */}
         <div css={arrowCss} onClick={handleNextQuestion}></div>

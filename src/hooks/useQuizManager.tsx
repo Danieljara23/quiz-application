@@ -21,7 +21,8 @@ function useQuizManager({id}){
     onCompleted: (data) =>setQuizState({
       ...data?.questionnaire,
       counter: 0,
-      total: data?.questionnaire.questions.length
+      total: data?.questionnaire.questions.length,
+      userAnswers: []
     })
   });
 
@@ -33,13 +34,24 @@ function useQuizManager({id}){
 
 
   const setNextQuestion = useCallback(() => {
-    setQuizState(prevState => ({...prevState, counter: prevState.counter + 1 })
+    setQuizState(prevState => ({
+      ...prevState, 
+      counter: prevState.counter + 1
+      })
     )
-  }, [])
+  }, []);
+
+  const setUserAnswers = useCallback((currentAnswer) => {
+    setQuizState(prevState => ({
+      ...prevState,
+      userAnswers: [...prevState.userAnswers, {correct: currentAnswer}]
+    }))
+  }, []);
 
   return {
     quizState,
     setNextQuestion,
+    setUserAnswers,
     loading,
     error
   }
