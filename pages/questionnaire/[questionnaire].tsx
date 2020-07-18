@@ -58,11 +58,10 @@ function Questionnaire({ props }){
     setOpenQuiz(true);
   }
 
-  // 1px solid #38b16c
-  // #ca6666 -red
   function handleSelectedQuestion(event, isCorrect){
     console.log(event.target)
     event.stopPropagation();
+    
     if(document && event.target){
       const parentClass = event.target.parentElement.getAttribute('class');
       const answerList = document.querySelectorAll(`.${parentClass}`);
@@ -97,6 +96,7 @@ console.log("COUNTER:", counter);
           answers={questions[counter]?.answers}
           onAnswerSelected={handleSelectedQuestion}
           onNextQuestion={setNextQuestion}
+          userAnswers={userAnswers}
           setUserAnswers={setUserAnswers}
         /> ):(
           <>

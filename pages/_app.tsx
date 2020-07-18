@@ -28,6 +28,10 @@ function MyApp({Component, pageProps, canonicalUrl}:any){
         <Global
           styles={css`
             @import url("${URL_GOOGLE_FONTS}");
+
+            body * {
+              box-sizing: border-box;
+            }
           `}
         />
         <Component {...pageProps} />

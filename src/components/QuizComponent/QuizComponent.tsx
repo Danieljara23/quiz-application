@@ -67,7 +67,7 @@ const pauseCss = css`
 
 
 function QuizComponent(props){
-  const {counter, total, questionTitle, answers, onAnswerSelected, onNextQuestion, setUserAnswers } = props;
+  const {counter, total, questionTitle, answers, onAnswerSelected, onNextQuestion, userAnswers, setUserAnswers } = props;
   const [showCorrect, setShowCorrect] = useState(null);
   const [showFinalResult, setShowFinalResult] = useState(false);
 
@@ -130,14 +130,16 @@ function QuizComponent(props){
         </div>
       </>
       ):(
-        <FinalResult/>
+        <FinalResult
+        userAnswers={userAnswers}
+        />
       )
 
       }
-      <div css={controlsCss}>
+      {!showFinalResult && <div css={controlsCss}>
         {/* <div css={arrowCss}></div> */}
         <div css={arrowCss} onClick={handleNextQuestion}></div>
-      </div>
+      </div>}
     </div>
   )
 }
