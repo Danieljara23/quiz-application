@@ -10,7 +10,7 @@ const containerCss = css`
   height: 100vh;
   width: 100%;
   
-  & img {
+  & > img {
     width: 100%;
     object-fit: cover;
     height: 100%;

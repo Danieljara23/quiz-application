@@ -87,7 +87,7 @@ function FinalResult({userAnswers}){
       </WhiteCard>
 
       <button>
-        <SvgIcon iconName="replay" />
+        <SvgIcon iconName="pause" width="50px" height="50px" alt="icono" />
         {/* <Replay fill="blue" /> */}
         Reintentar
       </button>
