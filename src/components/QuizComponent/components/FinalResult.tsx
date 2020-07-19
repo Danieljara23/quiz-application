@@ -53,6 +53,21 @@ const ResultValue = styled.p`
   `}
 `;
 
+const buttonCss = css`
+  background-color: rgba(48, 48, 48, 0.23);
+  border: none;
+  box-shadow: none;
+  box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.16);
+  border-radius: 33px;
+  margin-top: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+`;
+
 
 function getFinalResults(userAnswers){
   return userAnswers.reduce((obj, item)=>{
@@ -86,12 +101,14 @@ function FinalResult({userAnswers}){
         </div>
       </WhiteCard>
 
-      <button>
-        <SvgIcon iconName="pause" width="50px" height="50px" alt="icono" />
-        {/* <Replay fill="blue" /> */}
+      <button css={buttonCss}>
+        <SvgIcon iconName="replay" width="25px" height="25px" alt="Replay" color="#29DBC9" />
         Reintentar
       </button>
-      <button></button>
+      <button css={buttonCss}>
+        <SvgIcon iconName="price" width="35px" height="35px" alt="Premio" />
+        Tabla de posiciones
+      </button>
 
     </div>
   )
