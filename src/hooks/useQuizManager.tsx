@@ -7,6 +7,7 @@ interface Answer {
   description: string
   isCorrect: boolean
 }
+
 interface Question {
   questionTitle: string
   answers: Answer[]

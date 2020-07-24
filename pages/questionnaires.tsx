@@ -4,6 +4,8 @@ import QuestionnaireCard from "../src/components/QuestionnaireCard/index";
 import  Layout from "../src/components/Layout/index";
 import {css} from "@emotion/core";
 import Link from 'next/link';
+import { initializeApollo } from "../apollo/apolloClient";
+
 const containerCss = css`
   width:100%;
 `;
@@ -13,7 +15,7 @@ const titleCss = css`
   font-size: 30px;
 `;
 
-const questionnairesQuery = gql`
+const QUESTIONNAIRES_QUERY = gql`
   query{
     questionnaires{
       id
@@ -33,13 +35,16 @@ interface QuestionnairesData {
   questionnaires: [Questionnaire]
 }
 
-function Questionnaires(){
-  const {data, loading, error} = useQuery<QuestionnairesData>(questionnairesQuery);
+function Questionnaires({response}){
+  console.log(response)
+
+  const {data, loading} = response
+  // const {data, loading, error} = useQuery<QuestionnairesData>(QUESTIONNAIRES_QUERY);
 
 
   if(loading) return <p>Loading</p>;
-  if(error) return <p>Ups, an error has ocurred</p>;
-  console.log(data);
+  // if(error) return <p>Ups, an error has ocurred</p>;
+  // console.log(data);
   return(
     <Layout css={containerCss} title="Categorías">
       <h1 css={titleCss}>Categorías</h1>
@@ -59,6 +64,17 @@ function Questionnaires(){
     </Layout>
   )
 
+}
+
+export async function getStaticProps(context) {
+  const apolloClient = initializeApollo();
+
+  const response = await apolloClient.query({
+    query: QUESTIONNAIRES_QUERY,
+  })
+
+  console.log(response)
+  return {props: {response}}
 }
 
 export default Questionnaires;
