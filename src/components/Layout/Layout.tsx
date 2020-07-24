@@ -1,52 +1,63 @@
-import React, { ReactNode } from 'react';
-import Head from 'next/head';
-import { Navbar } from 'react-bootstrap';
-import { Nav } from 'react-bootstrap';
-import { css } from '@emotion/core';
-
-const Navbarcss = css`
-  background: #5d1ad2ed !important;
-  font-size: 20px;
-  padding: 0rem 1rem;
-`;
+import React, { ReactNode } from 'react'
+import Link from 'next/link'
+import Head from 'next/head'
+import {css} from "@emotion/core";
 
 type Props = {
-  children?: ReactNode;
-  title?: string;
-};
+  children?: ReactNode
+  title?: string
+}
 
-function Layout({ children, title = 'AppstUdiar' }: Props): JSX.Element {
+const layoutCss = css`
+  display: grid;
+  grid-template-rows: 60px auto 60px;
+  height: 100vh;
+`;
+
+const Navbarcss = css`
+  background: #2b6c92;
+  font-size: 20px;
+  padding: 0rem 1rem;
+  height: 60px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const navBarLink = css`
+  color: white;
+  padding-right: 20px;
+`;
+
+
+function Layout({ children, title = "AppstUdiar" }: Props){
   return (
+  <div css={layoutCss}>
+    <Head>
+      <title>{title}</title>
+    </Head>
+    <header >
+      <nav css={Navbarcss}>
+        <Link href="/">
+          <a css={navBarLink}>Home</a>
+        </Link>
+        <Link href="/about">
+          <a css={navBarLink}>About</a>
+        </Link>
+        <Link href="/questionnaires">
+          <a css={navBarLink}>Categorías</a>
+        </Link>
+      </nav>
+    </header>
     <div>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <header>
-        <Navbar
-          css={Navbarcss}
-          collapseOnSelect
-          expand="lg"
-          bg="dark"
-          variant="dark"
-        >
-          <Navbar.Brand href="/">AppStudiar</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/questionnaires">Categorías</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-      </header>
       {children}
-      <footer>
-        <hr />
-        <span>{"I'm here to stay (Footer)"}</span>
-      </footer>
     </div>
-  );
+    <footer>
+      <hr />
+      <span>I'm here to stay (Footer)</span>
+    </footer>
+  </div>
+)
 }
 
 export default Layout;

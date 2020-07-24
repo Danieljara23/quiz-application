@@ -51,22 +51,18 @@ function Questionnaire({ props }){
   const { quizState: { questionnaireTitle, imageUrl, description, questions, counter, total, userAnswers,  loading, error} , setUserAnswers,  setNextQuestion} = useQuizManager({id});
   if(loading) return <p>Loading</p>;
   if(error) return <p>Ups, ha ocurrido un error</p>;
-  console.log(userAnswers);
   
   function handleClick(){
-    console.log("Clicked!");
     setOpenQuiz(true);
   }
 
   function handleSelectedQuestion(event, isCorrect){
-    console.log(event.target)
     event.stopPropagation();
     
     if(document && event.target){
       const parentClass = event.target.parentElement.getAttribute('class');
       const answerList = document.querySelectorAll(`.${parentClass}`);
       answerList.forEach((listItem:any) => {
-        console.log(listItem)
         if(listItem.getAttribute('data-correct') === "true"){
           listItem.style['border'] = '1px solid #38b16c';
           listItem.style['background-color'] = '#38b16c';
@@ -76,10 +72,7 @@ function Questionnaire({ props }){
         event.target.parentElement.style['border'] = '1px solid #ca6666';
         event.target.parentElement.style['background-color'] = '#ca6666';
       }
-      console.log(answerList)
     }
-    console.log(isCorrect)
-    // console.log("Hello")
   }
   
 

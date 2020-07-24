@@ -1,6 +1,10 @@
+import { Questionnaire } from "../src/types/types";
+
+
 export const resolvers = {
   Query: {
     questionnaires(parent:any, args:any, ctx:any) {
+      console.log(ctx)
       return ctx.prisma.questionnaire.findMany()
     },
     questionnaire(parent:any, {id}: any, ctx:any){
@@ -18,9 +22,28 @@ export const resolvers = {
     }
   },
   Mutation: {
-    // createQuestionnaire(){
-    //   return prisma.questionnaire.create()
-    // },
+    createQuestionnaire(parent:any, args:any, ctx:any){
+      const { questionnaire } = args;
+      const  { questionnaireTitle, description, imageUrl, questions } = questionnaire;
+      return ctx.prisma.questionnaire.create({
+        data: {
+          questionnaireTitle,
+          description,
+          imageUrl,
+          questions: {
+            create: questions.map((question) =>({
+                questionTitle: question.questionTitle,
+                answers: {
+                  create: question.answers.map((answer) => ({
+                      description: answer.description,
+                      isCorrect: answer.isCorrect
+                  }))
+                }
+            }))
+          }
+        }
+      })
+    },
     createQuestion(parent:any, {questionTitle, questionnaireId}:any, ctx:any ){
       return ctx.prisma.question.create({
         data: {
@@ -42,6 +65,6 @@ export const resolvers = {
           }
         }
       })
-    }
+    },
   }
 }

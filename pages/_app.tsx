@@ -2,9 +2,8 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import { CacheProvider, Global, css } from '@emotion/core'
 import { cache } from 'emotion'
-import { ApolloProvider } from '@apollo/react-hooks'
-import { useApollo } from "../apollo/client";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { ApolloProvider } from '@apollo/client'
+import { useApollo } from "../apollo/apolloClient";
 import { globalStyles } from '../shared/styles'
 
 // const GRAPHQL_ENDPOINT = `http://localhost:3000/api/graphql`;
@@ -35,7 +34,7 @@ function MyApp({Component, pageProps, canonicalUrl}:any){
           `}
         />
         <Component {...pageProps} />
-        <div id ="modals-container"></div>
+        {/* <div id ="modals-container"></div> */}
       </CacheProvider>
     </ApolloProvider>
   )

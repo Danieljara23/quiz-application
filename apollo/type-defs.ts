@@ -11,7 +11,7 @@ export const typeDefs = gql`
   type Mutation {
     createAnswer(description: String!, isCorrect: Boolean!, questionId: ID): Answer
     createQuestion(questionTitle: String!, questionnaireId: ID): Question
-    # createQuestionnaire(questionnaireTitle: String!, questions: [Question]!): Questionnaire
+    createQuestionnaire(questionnaire:QuestionnaireInput): Questionnaire
   }
 
   type User {
@@ -38,4 +38,25 @@ export const typeDefs = gql`
     description:String!
     isCorrect:Boolean!
   }
+
+  input QuestionnaireInput{
+    id: ID
+    questionnaireTitle: String
+    description: String
+    imageUrl: String
+    questions: [QuestionInput]
+  }
+
+  input QuestionInput {
+    id: ID
+    questionTitle:String
+    answers: [AnswerInput]
+  }
+
+  input AnswerInput {
+    id: ID
+    description:String
+    isCorrect:Boolean
+  }
+
 `

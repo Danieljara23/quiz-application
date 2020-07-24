@@ -1,12 +1,18 @@
-import { useState, useCallback, useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { QUESTIONNAIRE } from '../graphql/questionnaire.query';
+import  {useState, useCallback, useEffect} from "react";
+import { useLazyQuery } from "@apollo/client";
+import { QUESTIONNAIRE } from "../graphql/questionnaire.query";
 
 interface Answer {
   id: string;
   description: string;
   isCorrect: boolean;
 }
+
+interface Question {
+  questionTitle: string
+  answers: Answer[]
+}
+
 
 interface UseQuizManagerProps {
   id: string;

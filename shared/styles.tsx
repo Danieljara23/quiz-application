@@ -12,6 +12,19 @@ export const globalStyles = (
         min-height: 100%;
         font-family: 'Muli', sans-serif;
         font-size: 24px;
+        min-width: 320px;
+      }
+
+      body *{
+        font-family: 'Muli', sans-serif;
+      }
+
+      *,*:focus,*:hover{
+        outline:none;
+      }
+
+      button::focus{
+        outline: none;
       }
     `}
   />
