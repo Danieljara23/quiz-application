@@ -4,7 +4,7 @@ import { CacheProvider, Global, css } from '@emotion/core'
 import { cache } from 'emotion'
 import { ApolloProvider } from '@apollo/react-hooks'
 import { useApollo } from "../apollo/client";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { globalStyles } from '../shared/styles'
 
 // const GRAPHQL_ENDPOINT = `http://localhost:3000/api/graphql`;
