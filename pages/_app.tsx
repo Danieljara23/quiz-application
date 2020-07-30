@@ -6,7 +6,9 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useApollo } from "../apollo/apolloClient";
 import { globalStyles } from '../shared/styles'
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'mdbreact/dist/css/mdb.css';
+import {useFirebaseApp} from 'reactfire'
 // const GRAPHQL_ENDPOINT = `http://localhost:3000/api/graphql`;
 const URL_GOOGLE_FONTS = "https://fonts.googleapis.com/css2?family=Muli:wght@400;600;700&display=swap";
 

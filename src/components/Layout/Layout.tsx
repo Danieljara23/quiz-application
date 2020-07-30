@@ -19,6 +19,7 @@ type Props = {
 }
 
 function Layout({ children, title = "AppstUdiar" }: Props){
+  
   return (<div>
     <Head>
       <title>{title}</title>
