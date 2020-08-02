@@ -1,8 +1,7 @@
-import { css } from "@emotion/core";
-import styled from "@emotion/styled";
-import WhiteCard from "../../WhiteCard";
-import Replay from "../../../../public/images/icons/replay.svg";
-import SvgIcon from "../../SvgIcon";
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+import WhiteCard from '../../WhiteCard';
+import SvgIcon from '../../SvgIcon';
 
 const finalResultContainerCss = css`
   width 100%;
@@ -40,7 +39,7 @@ const resultsContainer = css`
 `;
 
 const descriptionCss = css`
-  color: #3A3A3A;
+  color: #3a3a3a;
   font-size: 12px;
   font-weight: bold;
 `;
@@ -48,8 +47,8 @@ const descriptionCss = css`
 const ResultValue = styled.p`
   font-size: 29px;
   margin: 0;
-  ${({correct}) => css`
-    color: ${correct ? '#00A156': '#D9000F'}
+  ${({ correct }) => css`
+    color: ${correct ? '#00A156' : '#D9000F'};
   `}
 `;
 
@@ -68,28 +67,28 @@ const buttonCss = css`
   font-weight: bold;
 `;
 
-
-function getFinalResults(userAnswers){
-  return userAnswers.reduce((obj, item)=>{
-    if(!obj["rigths"]) obj["rigths"] = 0
-    if(!obj["wrongs"]) obj["wrongs"] = 0
-    if(item.correct){
+function getFinalResults(userAnswers) {
+  return userAnswers.reduce((obj, item) => {
+    if (!obj['rigths']) obj['rigths'] = 0;
+    if (!obj['wrongs']) obj['wrongs'] = 0;
+    if (item.correct) {
       obj.rigths++;
-    }else{
+    } else {
       obj.wrongs++;
     }
     return obj;
-}, {})
+  }, {});
 }
 
-function FinalResult({userAnswers}){
+interface FinalResultProps {
+  userAnswers: any;
+}
 
+function FinalResult({ userAnswers }: FinalResultProps): JSX.Element {
   const { rigths, wrongs } = getFinalResults(userAnswers);
-  console.log(rigths, wrongs)
 
-  return(
+  return (
     <div css={finalResultContainerCss}>
-
       <WhiteCard styles={whiteCardCss}>
         <div css={[resultsContainer]}>
           <p css={descriptionCss}>Preguntas correctas</p>
@@ -102,17 +101,21 @@ function FinalResult({userAnswers}){
       </WhiteCard>
 
       <button css={buttonCss}>
-        <SvgIcon iconName="replay" width="25px" height="25px" alt="Replay" color="#29DBC9" />
+        <SvgIcon
+          iconName="replay"
+          width="25px"
+          height="25px"
+          alt="Replay"
+          color="#29DBC9"
+        />
         Reintentar
       </button>
       <button css={buttonCss}>
         <SvgIcon iconName="price" width="35px" height="35px" alt="Premio" />
         Tabla de posiciones
       </button>
-
     </div>
-  )
-
+  );
 }
 
 export default FinalResult;

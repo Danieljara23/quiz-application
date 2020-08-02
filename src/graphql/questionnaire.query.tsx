@@ -1,14 +1,14 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const QUESTIONNAIRE = gql`
   query questionnaire($id: ID!) {
-    questionnaire(id: $id){
+    questionnaire(id: $id) {
       questionnaireTitle
       description
       imageUrl
-      questions{
+      questions {
         questionTitle
-        answers{
+        answers {
           id
           description
           isCorrect

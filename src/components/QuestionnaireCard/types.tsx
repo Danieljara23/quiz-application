@@ -1,4 +1,4 @@
 export interface QuestionnaireCardProps {
-  questionnaireTitle: string
-  imageUrl: string
+  questionnaireTitle: string;
+  imageUrl: string;
 }

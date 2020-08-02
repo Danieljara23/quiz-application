@@ -1,1 +1,1 @@
-export { default } from "./QuizComponent";
+export { default } from './QuizComponent';

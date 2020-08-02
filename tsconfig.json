@@ -9,16 +9,14 @@
     "lib": ["dom", "es2017"],
     "module": "esnext",
     "moduleResolution": "node",
-    "noEmit": false,
+    "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": false,
-    "target": "esnext",
-    "rootDir": ".",
-    "plugins": [{ "name": "nexus/typescript-language-service" }]
+    "strict": true,
+    "target": "esnext"
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx", "prisma/seedData.js", "prisma/seedData.js"]

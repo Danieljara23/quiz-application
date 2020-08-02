@@ -1,4 +1,4 @@
-import { css } from "@emotion/core";
+import { css } from '@emotion/core';
 
 const counterContainerCss = css`
   width: 100%;
@@ -12,16 +12,16 @@ const counterCss = css`
 `;
 
 interface QuestionCount {
-  counter: number
-  total: number
+  counter: number;
+  total: number;
 }
 
-function QuestionCount({counter, total}:QuestionCount){
-  return(
+function QuestionCount({ counter, total }: QuestionCount): JSX.Element {
+  return (
     <div css={counterContainerCss}>
       <p css={counterCss}>{`${counter} de ${total}`}</p>
     </div>
-  )
+  );
 }
 
-export default QuestionCount
+export default QuestionCount;
