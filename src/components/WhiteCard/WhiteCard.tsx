@@ -1,4 +1,6 @@
-import { css } from "@emotion/core";
+import { ReactNode } from 'react';
+
+import { css } from '@emotion/core';
 
 const whiteCardCss = css`
   border-radius: 19px;
@@ -7,12 +9,12 @@ const whiteCardCss = css`
   padding: 20px;
 `;
 
-function WhiteCard({children, styles}){
-  return(
-    <div css={[whiteCardCss, styles]}>
-      {children}
-    </div>
-  )
+interface WhiteCardProps {
+  children?: ReactNode;
+  styles: any;
+}
+function WhiteCard({ children, styles }: WhiteCardProps): JSX.Element {
+  return <div css={[whiteCardCss, styles]}>{children}</div>;
 }
 
 export default WhiteCard;

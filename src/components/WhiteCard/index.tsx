@@ -1,1 +1,1 @@
-export { default } from "./WhiteCard"; 
+export { default } from './WhiteCard';

@@ -1,19 +1,6 @@
-import { css } from "@emotion/core";
-import styled from '@emotion/styled'
-import addLetterPrefix from "../../../../utils/add-prefix";
-import { useState } from "react";
-
-// const answerListItem = css`
-//   background-color: #7075d8;
-//   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.16);
-//   border: 1px solid #7075d8;
-//   height: 40px;
-//   border-radius: 33px;
-//   margin: 0;
-//   margin-bottom: 20px;
-//   font-size: 16px;
-//   display: flex;
-// `;
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+import addLetterPrefix from '../../../../utils/add-prefix';
 
 const customRadioButtonCss = css`
   position: absolute;
@@ -32,20 +19,20 @@ const labelCss = css`
 `;
 
 const TYPE_COLORS = {
-  correct: "#38b16c",
-  wrong: "#ca6666",
-  default: "#7075d8"
+  correct: '#38b16c',
+  wrong: '#ca6666',
+  default: '#7075d8',
 };
 
 const TYPE_BORDER_RADIUS = {
-  large: "20px",
-  default: "33px"
-}
+  large: '20px',
+  default: '33px',
+};
 
 const TYPE_HEIGHT = {
-  large: "80px",
-  default: "40px"
-}
+  large: '80px',
+  default: '40px',
+};
 
 const AnswerListItem = styled.li`
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.16);
@@ -61,31 +48,39 @@ const AnswerListItem = styled.li`
   `}
 `;
 
-interface AnswerOption {
-  id: string
-  isCorrect: boolean
-  answerContent: string
-  onAnswerSelected: (e:any, isCorrect:boolean) => {}
-  index: number
-  showCorrect: boolean
-  setShowCorrect: any
-  type: string
-  contentLengthType: string
-  setUserAnswers: (userAnswer:boolean) => {}
+interface AnswerOptionProps {
+  id: string;
+  isCorrect: boolean;
+  answerContent: string;
+  index: number;
+  setShowCorrect: any;
+  type: string;
+  contentLengthType: string;
+  setUserAnswers: (userAnswer: boolean) => void;
 }
 
-
-
-function AnswerOption({id, isCorrect, answerContent, onAnswerSelected, index, showCorrect, setShowCorrect, type, contentLengthType, setUserAnswers}:AnswerOption){
-
-  function handleClick(){
-    console.log(isCorrect)
-    setUserAnswers(isCorrect)
-    setShowCorrect(id)
+function AnswerOption({
+  id,
+  isCorrect,
+  answerContent,
+  index,
+  setShowCorrect,
+  type,
+  contentLengthType,
+  setUserAnswers,
+}: AnswerOptionProps): JSX.Element {
+  function handleClick() {
+    console.log(isCorrect);
+    setUserAnswers(isCorrect);
+    setShowCorrect(id);
   }
 
-  return(
-    <AnswerListItem onClick={handleClick} type={type} contentLengthType={contentLengthType}>
+  return (
+    <AnswerListItem
+      onClick={handleClick}
+      type={type}
+      contentLengthType={contentLengthType}
+    >
       <input
         css={customRadioButtonCss}
         type="radio"
@@ -97,8 +92,7 @@ function AnswerOption({id, isCorrect, answerContent, onAnswerSelected, index, sh
         {`${addLetterPrefix(index, answerContent)}`}
       </label>
     </AnswerListItem>
-  )
-
+  );
 }
 
 export default AnswerOption;
