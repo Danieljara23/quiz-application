@@ -24,6 +24,7 @@
     "bootstrap": "^4.5.0",
     "emotion": "^10.0.27",
     "emotion-server": "^10.0.27",
+    "emotion-theming": "^10.0.27",
     "graphql": "^15.1.0",
     "graphql-tag": "^2.10.3",
     "isomorphic-unfetch": "^3.0.0",
@@ -63,8 +64,8 @@
     "src/**/*.{ts,tsx}": "npm run lint:fix"
   },
   "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
