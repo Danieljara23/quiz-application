@@ -1,14 +1,13 @@
-import { css } from "@emotion/core";
-import SvgIcon from "../../../components/SvgIcon";
+import { css } from '@emotion/core';
+import SvgIcon from '../../../components/SvgIcon';
 
 interface OptionProps {
-  enableEdition: boolean
-  questionIdx: number
-  index: number
-  description: string,
-  isCorrect: boolean,
-  changeOption: (name, value, questionId, optionId) => any
-  removeQuestionOption: (optionId, questionId) => any
+  enableEdition: boolean;
+  questionIdx: number;
+  index: number;
+  description: string;
+  changeOption: (name, value, questionId, optionId) => any;
+  removeQuestionOption: (optionId, questionId) => any;
 }
 
 const optionContainerCss = css`
@@ -29,7 +28,7 @@ const optionInputCss = css`
   }
 
   &::placeholder {
-    color: #3A3A3A;
+    color: #3a3a3a;
     opacity: 0.5;
   }
 
@@ -53,26 +52,37 @@ const circleCss = css`
   margin-right: 5px;
 `;
 
-function Option({ enableEdition, questionIdx, index, description, isCorrect, changeOption, removeQuestionOption }: OptionProps){
-  return(
+function Option({
+  enableEdition,
+  questionIdx,
+  index,
+  description,
+  changeOption,
+  removeQuestionOption,
+}: OptionProps): JSX.Element {
+  return (
     <div css={optionContainerCss}>
-      <div css={circleCss}/>
-      {
-        enableEdition ? (
-          <input css={optionInputCss}
-            name="description"
-            type="text"
-            value={description}
-            onChange={(e)=>changeOption(e.target.name, e.target.value, questionIdx, index)}
-          />
-        ):(
-          <p css={descriptionCss}>{description}</p>
-        )
-      }
-      {enableEdition && <div onClick={() => removeQuestionOption(index, questionIdx)}><SvgIcon  iconName="close" width="16px" height="16px" alt="Replay"/></div>}
-  
+      <div css={circleCss} />
+      {enableEdition ? (
+        <input
+          css={optionInputCss}
+          name="description"
+          type="text"
+          value={description}
+          onChange={(e) =>
+            changeOption(e.target.name, e.target.value, questionIdx, index)
+          }
+        />
+      ) : (
+        <p css={descriptionCss}>{description}</p>
+      )}
+      {enableEdition && (
+        <button onClick={() => removeQuestionOption(index, questionIdx)}>
+          <SvgIcon iconName="close" width="16px" height="16px" alt="Replay" />
+        </button>
+      )}
     </div>
-  )
+  );
 }
 
-export default Option
+export default Option;

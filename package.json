@@ -66,8 +66,8 @@
     "src/**/*.{ts,tsx}": "npm run lint:fix"
   },
   "husky": {
-      "hooks": {
-        "pre-commit": "lint-staged"
-      }
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

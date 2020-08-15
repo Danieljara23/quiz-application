@@ -1,24 +1,23 @@
-import { css } from "@emotion/core";
-import Question from "./components/Question";
-import SvgIcon from "../SvgIcon";
-import Plus from "../../../public/images/icons/plus.svg";
+import { css } from '@emotion/core';
+import Question from './components/Question';
+import Plus from '../../../public/images/icons/plus.svg';
 
 interface QuestionsProps {
-  questions: Question[]
-  changeQuestion: (name,value, index) => any
-  addQuestion: () => any
-  addOption: (questionId) => any
-  changeOption: (name, value, questionId, optionId) => any
-  enableEditionInQuestion: (questionId) => any
-  removeQuestionOption: (optionId, questionId) => any
-  removeQuestion: (questionId) => any
-  handleCreateClick: () => any
+  questions: Question[];
+  changeQuestion: (name, value, index) => any;
+  addQuestion: () => any;
+  addOption: (questionId) => any;
+  changeOption: (name, value, questionId, optionId) => any;
+  enableEditionInQuestion: (questionId) => any;
+  removeQuestionOption: (optionId, questionId) => any;
+  removeQuestion: (questionId) => any;
+  handleCreateClick: () => any;
 }
 
 interface Question {
-  questionTitle: string
-  enableEdition: boolean
-  answers: any
+  questionTitle: string;
+  enableEdition: boolean;
+  answers: any;
 }
 
 const questionsManagerContainerCss = css`
@@ -65,14 +64,23 @@ const addQuestionButtonCss = css`
   }
 `;
 
-function QuestionsManager({ questions, changeQuestion, addQuestion, changeOption, addOption, enableEditionInQuestion, removeQuestionOption,removeQuestion, handleCreateClick }:QuestionsProps) {
-  return(
+function QuestionsManager({
+  questions,
+  changeQuestion,
+  addQuestion,
+  changeOption,
+  addOption,
+  enableEditionInQuestion,
+  removeQuestionOption,
+  removeQuestion,
+  handleCreateClick,
+}: QuestionsProps): JSX.Element {
+  return (
     <div css={questionsManagerContainerCss}>
       <div css={questionsWrapperCss}>
-        {
-          questions.map((question, index) =>{
-            return(
-              <>
+        {questions.map((question, index) => {
+          return (
+            <>
               <Question
                 index={index}
                 questionTitle={question.questionTitle}
@@ -86,16 +94,21 @@ function QuestionsManager({ questions, changeQuestion, addQuestion, changeOption
                 removeQuestion={removeQuestion}
               />
               <div css={addQuestionButtonContainerCss}>
-                <button css={addQuestionButtonCss} onClick={addQuestion}><Plus/>Añadir pregunta</button>
-                <button css={addQuestionButtonCss} onClick={handleCreateClick}><Plus/>Guardar Cuestionario</button>
+                <button css={addQuestionButtonCss} onClick={addQuestion}>
+                  <Plus />
+                  Añadir pregunta
+                </button>
+                <button css={addQuestionButtonCss} onClick={handleCreateClick}>
+                  <Plus />
+                  Guardar Cuestionario
+                </button>
               </div>
             </>
-            )
-          })
-        }
+          );
+        })}
       </div>
     </div>
-  )
+  );
 }
 
 export default QuestionsManager;

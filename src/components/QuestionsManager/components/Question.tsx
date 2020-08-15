@@ -1,24 +1,24 @@
-import { css } from "@emotion/core";
-import styled from "@emotion/styled";
-import Option from "./Option";
-import SvgIcon from "../../SvgIcon";
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+import Option from './Option';
+import SvgIcon from '../../SvgIcon';
 
 interface QuestionProps {
-  index: number
-  questionTitle: string,
-  enableEdition: boolean,
-  answers: Answer[]
-  changeQuestion: (name, value, index) => any
-  addOption: (questionId) => any
-  changeOption: (name, value, questionId, optionId) => any
-  enableEditionInQuestion: (questionId) => any
-  removeQuestionOption: (optionId, questionId) => any
-  removeQuestion: (questionId) => any
+  index: number;
+  questionTitle: string;
+  enableEdition: boolean;
+  answers: Answer[];
+  changeQuestion: (name, value, index) => any;
+  addOption: (questionId) => any;
+  changeOption: (name, value, questionId, optionId) => any;
+  enableEditionInQuestion: (questionId) => any;
+  removeQuestionOption: (optionId, questionId) => any;
+  removeQuestion: (questionId) => any;
 }
 
 interface Answer {
-  description: string,
-  isCorrect: boolean
+  description: string;
+  isCorrect: boolean;
 }
 const QuestionContainerStyled = styled.div`
   border: 1px solid #e8e0e0;
@@ -29,9 +29,11 @@ const QuestionContainerStyled = styled.div`
   margin-bottom: 10px;
   background: white;
 
-  ${({enableEdition}) => css`
-    border-left: ${ enableEdition ? '5px solid #2b6c92': '1px solid #e8e0e0'};
-    box-shadow: ${ enableEdition ? '0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24)': 'none'};
+  ${({ enableEdition }) => css`
+    border-left: ${enableEdition ? '5px solid #2b6c92' : '1px solid #e8e0e0'};
+    box-shadow: ${enableEdition
+      ? '0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24)'
+      : 'none'};
   `}
 `;
 
@@ -48,7 +50,7 @@ const questionInputCss = css`
   }
 
   &::placeholder {
-    color: #3A3A3A;
+    color: #3a3a3a;
     opacity: 0.5;
   }
 
@@ -70,13 +72,12 @@ const answersContainerCss = css`
   margin-left: 20px;
 `;
 
-
 const addOptionCss = css`
   display: flex;
   align-items: center;
   cursor: text;
 
-  & div:first-child{
+  & div:first-child {
     width: 20px;
     height: 20px;
     border: 1px solid #e8e0e0;
@@ -105,55 +106,75 @@ const questionFooterCss = css`
   border-top: 1px solid #cccccc;
 `;
 
-
-function Question({ questionTitle, enableEdition, answers, changeQuestion, index, changeOption, addOption, enableEditionInQuestion, removeQuestionOption, removeQuestion }:QuestionProps){
-
-  function handleQuestionClick(){
-    enableEditionInQuestion(index)
+function Question({
+  questionTitle,
+  enableEdition,
+  answers,
+  changeQuestion,
+  index,
+  changeOption,
+  addOption,
+  enableEditionInQuestion,
+  removeQuestionOption,
+  removeQuestion,
+}: QuestionProps): JSX.Element {
+  function handleQuestionClick() {
+    enableEditionInQuestion(index);
   }
 
-  return(
-    <QuestionContainerStyled onClick={handleQuestionClick} enableEdition={enableEdition}>
-      { enableEdition ? 
-      <input 
-        css={questionInputCss}
-        name="questionTitle"
-        type="text"
-        value={questionTitle}
-        onChange={(e)=>changeQuestion(e.target.name, e.target.value, index)}
-      />:<p css={questionTitleCss}>{questionTitle}</p>
-      }
+  return (
+    <QuestionContainerStyled
+      onClick={handleQuestionClick}
+      enableEdition={enableEdition}
+    >
+      {enableEdition ? (
+        <input
+          css={questionInputCss}
+          name="questionTitle"
+          type="text"
+          value={questionTitle}
+          onChange={(e) => changeQuestion(e.target.name, e.target.value, index)}
+        />
+      ) : (
+        <p css={questionTitleCss}>{questionTitle}</p>
+      )}
       {/* {enableEdition && <button onClick={() => addOption(index)}>Agregar opción</button>} */}
       <div css={answersContainerCss}>
-        {
-          answers.map((answer,answerIdx) => {
-            return(
-              <Option
-                enableEdition={enableEdition}
-                questionIdx={index}
-                index={answerIdx}
-                description={answer.description}
-                isCorrect={answer.isCorrect}
-                changeOption={changeOption}
-                removeQuestionOption={removeQuestionOption}
-              />
-            )
-          })
-        }
-        {answers.length < 4 && <div css={addOptionCss} onClick={() => addOption(index)}>
-          <div/>
-          <p>Añadir opción</p>
-        </div>}
+        {answers.map((answer, answerIdx) => {
+          return (
+            <Option
+              key={`question-${index}`}
+              enableEdition={enableEdition}
+              questionIdx={index}
+              index={answerIdx}
+              description={answer.description}
+              changeOption={changeOption}
+              removeQuestionOption={removeQuestionOption}
+            />
+          );
+        })}
+        {answers.length < 4 && (
+          <button css={addOptionCss} onClick={() => addOption(index)}>
+            <div />
+            <p>Añadir opción</p>
+          </button>
+        )}
       </div>
 
-      {enableEdition && <div css={questionFooterCss}>
-        <div onClick={() => removeQuestion(index)}>
-          <SvgIcon  iconName="garbage" width="18px" height="18px" alt="Replay"/>
+      {enableEdition && (
+        <div css={questionFooterCss}>
+          <button onClick={() => removeQuestion(index)}>
+            <SvgIcon
+              iconName="garbage"
+              width="18px"
+              height="18px"
+              alt="Replay"
+            />
+          </button>
         </div>
-      </div>}
-      
+      )}
     </QuestionContainerStyled>
-  )
+  );
 }
 
 export default Question;

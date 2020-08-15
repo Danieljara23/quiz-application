@@ -42,4 +42,4 @@ module.exports = {
       version: 'detect',
     },
   },
-};
+}
