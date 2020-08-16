@@ -28,7 +28,7 @@ function useCreateQuestionnaire() {
       {
         questionTitle: 'Pregunta sin título',
         enableEdition: true,
-        answers: [{ description: 'Opción 1', isCorrect: false }],
+        answers: [{ description: 'Opción 1', isCorrect: true }],
       },
     ],
   });
@@ -107,7 +107,9 @@ function useCreateQuestionnaire() {
                 ...item,
                 answers: [
                   ...item.answers.map((option, idx) =>
-                    idx === optionId ? { ...option, [name]: value } : option
+                    idx === optionId
+                      ? { ...option, [name]: value }
+                      : { ...option, ['isCorrect']: false }
                   ),
                 ],
               }

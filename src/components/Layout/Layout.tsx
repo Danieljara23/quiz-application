@@ -34,6 +34,7 @@ function Layout({ children, title = 'AppstUdiar' }: Props): JSX.Element {
     <div css={layoutCss}>
       <Head>
         <title>{title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <header>
         <nav css={Navbarcss}>

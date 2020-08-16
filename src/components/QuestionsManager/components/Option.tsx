@@ -1,4 +1,5 @@
 import { css } from '@emotion/core';
+import styled from '@emotion/styled';
 import SvgIcon from '../../../components/SvgIcon';
 
 interface OptionProps {
@@ -6,6 +7,7 @@ interface OptionProps {
   questionIdx: number;
   index: number;
   description: string;
+  isCorrect: boolean;
   changeOption: (name, value, questionId, optionId) => any;
   removeQuestionOption: (optionId, questionId) => any;
 }
@@ -44,25 +46,52 @@ const descriptionCss = css`
   font-size: 12px;
 `;
 
-const circleCss = css`
+const StyledButton = styled.button`
   width: 20px;
   height: 20px;
   border: 1px solid #e8e0e0;
   border-radius: 20px;
   margin-right: 5px;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+
+  &:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    ${({ isCorrect }) => css`
+      background-color: ${isCorrect ? '#88d688' : 'transparent'};
+    `}
+  }
 `;
 
+const removeOptionCss = css`
+  border: none;
+  background-color: white;
+  padding: 0;
+  cursor: pointer;
+`;
 function Option({
   enableEdition,
   questionIdx,
   index,
   description,
+  isCorrect,
   changeOption,
   removeQuestionOption,
 }: OptionProps): JSX.Element {
   return (
     <div css={optionContainerCss}>
-      <div css={circleCss} />
+      <StyledButton
+        isCorrect={isCorrect}
+        onClick={() => changeOption('isCorrect', true, questionIdx, index)}
+      />
       {enableEdition ? (
         <input
           css={optionInputCss}
@@ -77,7 +106,10 @@ function Option({
         <p css={descriptionCss}>{description}</p>
       )}
       {enableEdition && (
-        <button onClick={() => removeQuestionOption(index, questionIdx)}>
+        <button
+          onClick={() => removeQuestionOption(index, questionIdx)}
+          css={removeOptionCss}
+        >
           <SvgIcon iconName="close" width="16px" height="16px" alt="Replay" />
         </button>
       )}

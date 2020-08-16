@@ -76,6 +76,9 @@ const addOptionCss = css`
   display: flex;
   align-items: center;
   cursor: text;
+  border: none;
+  background-color: transparent;
+  padding: 0;
 
   & div:first-child {
     width: 20px;
@@ -99,11 +102,18 @@ const addOptionCss = css`
 `;
 
 const questionFooterCss = css`
-  margin-top: 5px;
+  padding-top: 10px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   border-top: 1px solid #cccccc;
+`;
+
+const removeQuestionButtonCss = css`
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  padding: 0;
 `;
 
 function Question({
@@ -143,13 +153,14 @@ function Question({
         {answers.map((answer, answerIdx) => {
           return (
             <Option
-              key={`question-${index}`}
+              key={`question-${index}${answerIdx}`}
               enableEdition={enableEdition}
               questionIdx={index}
               index={answerIdx}
               description={answer.description}
               changeOption={changeOption}
               removeQuestionOption={removeQuestionOption}
+              isCorrect={answer.isCorrect}
             />
           );
         })}
@@ -163,7 +174,10 @@ function Question({
 
       {enableEdition && (
         <div css={questionFooterCss}>
-          <button onClick={() => removeQuestion(index)}>
+          <button
+            onClick={() => removeQuestion(index)}
+            css={removeQuestionButtonCss}
+          >
             <SvgIcon
               iconName="garbage"
               width="18px"
