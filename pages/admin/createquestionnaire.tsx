@@ -1,10 +1,10 @@
-import {css} from "@emotion/core";
-import useCreateQuestionnaire from "../../src/hooks/useCreateQuestionnaire";
-import QuestionsManager from "../../src/components/QuestionsManager"
-import  Layout from "../../src/components/Layout";
+import { css } from '@emotion/core';
+import useCreateQuestionnaire from '../../src/hooks/useCreateQuestionnaire';
+import QuestionsManager from '../../src/components/QuestionsManager';
+import Layout from '../../src/components/Layout';
 
 const containerCss = css`
-  width:100%;
+  width: 100%;
 `;
 
 const createManagerCss = css`
@@ -20,7 +20,7 @@ const createManagerTitleAndDescriptionCss = css`
   flex-direction: column;
   border-radius: 6px;
   padding: 15px 30px 10px 15px;
-  box-shadow: 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.24);
   border-top: 5px solid #2b6c92;
   margin-bottom: 20px;
 `;
@@ -33,7 +33,7 @@ const createManagerInputsCss = css`
   transition: all 0.2s ease-in;
 
   &::placeholder {
-    color: #3A3A3A;
+    color: #3a3a3a;
     opacity: 0.5;
   }
 
@@ -52,21 +52,51 @@ const descriptionCss = css`
   padding-left: 8px;
 `;
 
+function CreateQuestionnaire() {
+  const {
+    questionnaireState,
+    addQuestion,
+    removeQuestion,
+    addOption,
+    changeMainInfo,
+    changeQuestion,
+    changeOption,
+    enableEditionInQuestion,
+    removeQuestionOption,
+    createQuestionnaire,
+  } = useCreateQuestionnaire();
 
-function CreateQuestionnaire(){
-  const { questionnaireState, addQuestion, removeQuestion ,addOption, changeMainInfo, changeQuestion, changeOption, enableEditionInQuestion, removeQuestionOption, createQuestionnaire } = useCreateQuestionnaire();
-
-  function handleCreateClick(){
-    createQuestionnaire()
+  function handleCreateClick() {
+    createQuestionnaire();
   }
 
-  return(
+  return (
     <Layout css={containerCss} title="Crear cuestionario">
       <div css={createManagerCss}>
         <div css={createManagerTitleAndDescriptionCss}>
-          <input css={[createManagerInputsCss, titleCss]} name="questionnaireTitle" type="text" value={questionnaireState.questionnaireTitle} onChange={(e)=>changeMainInfo(e.target.name, e.target.value)}/>
-          <input css={[createManagerInputsCss, descriptionCss ]} name="description" type="text" value={questionnaireState.description} onChange={(e)=>changeMainInfo(e.target.name, e.target.value)} placeholder="Descripción del cuestionario"/>
-          <input css={[createManagerInputsCss, descriptionCss ]} type="text" name="imageUrl" value={questionnaireState.imageUrl} onChange={(e)=>changeMainInfo(e.target.name, e.target.value)} placeholder="Url de la imagen del cuestionario"/>
+          <input
+            css={[createManagerInputsCss, titleCss]}
+            name="questionnaireTitle"
+            type="text"
+            value={questionnaireState.questionnaireTitle}
+            onChange={(e) => changeMainInfo(e.target.name, e.target.value)}
+          />
+          <input
+            css={[createManagerInputsCss, descriptionCss]}
+            name="description"
+            type="text"
+            value={questionnaireState.description}
+            onChange={(e) => changeMainInfo(e.target.name, e.target.value)}
+            placeholder="Descripción del cuestionario"
+          />
+          <input
+            css={[createManagerInputsCss, descriptionCss]}
+            type="text"
+            name="imageUrl"
+            value={questionnaireState.imageUrl}
+            onChange={(e) => changeMainInfo(e.target.name, e.target.value)}
+            placeholder="Url de la imagen del cuestionario"
+          />
         </div>
         <QuestionsManager
           questions={questionnaireState.questions}
@@ -81,7 +111,7 @@ function CreateQuestionnaire(){
         />
       </div>
     </Layout>
-  )
+  );
 }
 
 export default CreateQuestionnaire;

@@ -27,6 +27,7 @@ const Navbarcss = css`
 const navBarLink = css`
   color: white;
   padding-right: 20px;
+  text-decoration: none;
 `;
 
 function Layout({ children, title = 'AppstUdiar' }: Props): JSX.Element {
